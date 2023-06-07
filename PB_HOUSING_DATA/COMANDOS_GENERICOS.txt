@@ -1,0 +1,5 @@
+.open PB_Housing_Data.db
+.mode column
+.header ON
+
+PRAGMA table_info(PB_Housing_Data);

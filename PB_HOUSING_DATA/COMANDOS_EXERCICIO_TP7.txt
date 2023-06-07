@@ -1,0 +1,32 @@
+variavel numerica: Lot_Area
+variavel categorica: Lot_Shape
+tabela original: PB_Housing_Data
+nova tabela: Amostra_PB_Housing_Data
+
+1- OK
+CREATE TABLE Amostra_PB_Housing_Data AS
+SELECT Lot_Shape, Lot_Area
+FROM PB_Housing_Data;
+
+2- OK
+SELECT Lot_Shape, COUNT(*) AS Contagem
+FROM Amostra_PB_Housing_Data
+GROUP BY Lot_Shape;
+
+3- OK
+SELECT Lot_Shape,Lot_Area FROM Amostra_PB_Housing_Data
+WHERE Lot_Area > (SELECT MIN(Lot_Area) FROM Amostra_PB_Housing_Data)
+  AND Lot_Area < (SELECT AVG(Lot_Area) FROM Amostra_PB_Housing_Data)
+ORDER BY Lot_Area ASC;
+
+4- OK
+DELETE FROM Amostra_PB_Housing_Data
+WHERE Lot_Shape = (
+  SELECT Lot_Shape
+  FROM Amostra_PB_Housing_Data
+  GROUP BY Lot_Shape
+  ORDER BY COUNT(*) DESC
+  LIMIT 1
+);
+
+
